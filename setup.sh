@@ -1,20 +1,22 @@
 #!/usr/bin/env bash
 set -e
 
-BASEDIR=$(dirname "$0")
+dir=$(cd -- "${1:-.}" 2>/dev/null && pwd -P)
+echo "dotfiles-dir: ${dir}"
 
-TMUX_LOC="$HOME/.tmux.conf"
-if [ ! -f $TMUX_LOC ]; then
-    ln -s "$BASEDIR/.tmux.conf" "$TMUX_LOC"
-    echo "Symlink created: $TMUX_LOC"
-else
-    echo "Already exists: $TMUX_LOC"
-fi
+create_link(){
+    config_src=$1
+    config_dst=$2
 
-ZSH_LOC="$HOME/.zshrc"
-if [ ! -f $ZSH_LOC ]; then
-    ln -s "$BASEDIR/.zshrc" "$ZSH_LOC"
-    echo "Symlink created: $ZSH_LOC"
-else
-    echo "Already exists: $ZSH_LOC"
-fi
+    if [ -L "$config_dst" ]; then
+        echo "Link already exists: $config_dst"
+    elif [ -f "$config_dst" ]; then
+        echo "File already exists: $config_dst"
+    else
+        ln -s "$config_src" "$config_dst"
+        echo "Symlink created: $config_src -> $config_dst"
+    fi
+}
+
+create_link "$dir/.tmux.conf" "$HOME/.tmux.conf" 
+create_link "$dir/.zshrc" "$HOME/.zshrc" 
