@@ -1,7 +1,11 @@
 # ~/.zshrc
 if [ "$TMUX" = "" ]; then tmux; fi
+setopt interactivecomments
 
 eval "$(starship init zsh)"
+
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
 
 export PATH="$PATH:$HOME/Development/flutter/bin"
 export PATH="$PATH:$HOME/bin"
@@ -13,7 +17,6 @@ if [ -f '/Users/max/Development/google-cloud-sdk/path.zsh.inc' ]; then . '/Users
 if [ -f '/Users/max/Development/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/max/Development/google-cloud-sdk/completion.zsh.inc'; fi
 source <(kubectl completion zsh)
 
-export PY_VER="3.12"
 alias python=python3
 alias pip=pip3
 
@@ -23,9 +26,6 @@ export NVM_DIR="$HOME/.nvm"
 
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
-
-# Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
 
 # pnpm
 export PNPM_HOME="/Users/max/Library/pnpm"
@@ -41,6 +41,7 @@ complete -o nospace -C /opt/homebrew/bin/terraform terraform
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/opt/homebrew/opt/python/bin:$PATH"
+
 source /Users/max/.config/op/plugins.sh
 
 # >>> conda initialize >>>
@@ -58,3 +59,4 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+source /Users/max/Projects/devcontainers/devcontainer_commands.sh 
