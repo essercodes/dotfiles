@@ -12,6 +12,8 @@ create_link(){
         echo "Link already exists: $config_dst"
     elif [ -f "$config_dst" ]; then
         echo "File already exists: $config_dst"
+    elif [ -d "$config_dst" ]; then
+        echo "Directory already exists: $config_dst"
     else
         ln -s "$config_src" "$config_dst"
         echo "Symlink created: $config_src -> $config_dst"
@@ -20,3 +22,4 @@ create_link(){
 
 create_link "$dir/.tmux.conf" "$HOME/.tmux.conf" 
 create_link "$dir/.zshrc" "$HOME/.zshrc" 
+create_link "$dir/ghostty" "$HOME/.config/ghostty" 
