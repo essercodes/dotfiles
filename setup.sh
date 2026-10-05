@@ -22,4 +22,9 @@ create_link(){
 
 create_link "$dir/.tmux.conf" "$HOME/.tmux.conf" 
 create_link "$dir/.zshrc" "$HOME/.zshrc" 
-create_link "$dir/ghostty" "$HOME/.config/ghostty" 
+
+docker_dir="$HOME/.docker"
+if [ ! -d "$docker_dir" ]; then
+    mkdir "$docker_dir"
+fi
+create_link "$dir/.docker/config.json" "$docker_dir/config.json" 
